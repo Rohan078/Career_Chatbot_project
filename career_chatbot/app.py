@@ -6,7 +6,7 @@ st.set_page_config(page_title="AI Career Advisor", layout="wide")
 
 st.title(" AI Career Advisor (Powered by Groq)")
 
-# Initialize the service
+
 if "advisor" not in st.session_state:
     try:
         st.session_state.advisor = CareerAdvisorService()
@@ -23,12 +23,10 @@ with st.sidebar:
     st.header("Monitoring")
     st.write(f"Total Session Tokens: {st.session_state.advisor.get_token_stats()}")
 
-# Display chat history
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
-# User input
 if prompt := st.chat_input("Ask about your career..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     

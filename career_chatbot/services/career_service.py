@@ -11,7 +11,6 @@ class CareerAdvisorService:
 
     def get_response(self, user_input):
         try:
-            # Convert stored tuples to LangChain message format
             formatted_history = []
             for role, message in self.chat_history:
                 if role == "human":
@@ -19,7 +18,6 @@ class CareerAdvisorService:
                 elif role == "ai":
                     formatted_history.append(AIMessage(content=message))
 
-            # Invoke the chain
             response = self.chain.invoke({
                 "input": user_input,
                 "chat_history": formatted_history
@@ -28,7 +26,6 @@ class CareerAdvisorService:
             
             logger.info(f"Successfully generated response for User Input: {user_input[:50]}...")
 
-            # Save conversation
             self.chat_history.append(("human", user_input))
             self.chat_history.append(("ai", response))
 
